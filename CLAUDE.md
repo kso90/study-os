@@ -38,7 +38,22 @@ The `(app)` folder name is ignored in URLs — `/dashboard` resolves to `app/(ap
 
 Tailwind CSS v4 — uses `@import "tailwindcss"` and `@theme {}` in `app/globals.css`. There is **no** `tailwind.config.js`. Custom color tokens (`ink`, `coral`, `linen`, `parchment`, `honey`, `blush`, `bark`) are defined in `@theme {}` and used directly as `text-ink`, `bg-coral`, etc.
 
-Custom CSS classes in `globals.css`: `.bento-box` (hard ink shadow + hover lift), `.btn-primary`, `.btn-outline`, `.animate-fade-up`, `.cat-float-1`…`.cat-float-5`, `.buddy-expand`, `.buddy-pulse`, `.buddy-celebrate`.
+Custom CSS classes in `globals.css`: `.bento-box` (hard ink shadow + hover lift), `.btn-primary`, `.btn-outline`, `.animate-fade-up`, `.cat-float-1`…`.cat-float-5`, `.buddy-expand`, `.buddy-pulse`, `.buddy-celebrate`. The `.font-gaegu` utility is also defined here because Tailwind v4 cannot auto-generate font-family utilities from CSS variables.
+
+Raw hex values used in inline styles map to these tokens: `#333130` = ink, `#fff8f0` = parchment, `#e8d6c0` = linen, `#ff6445` = coral, `#e3a164` = honey, `#87663e` = bark, `#e2ab9a` = blush.
+
+### Adding a New Page
+
+1. Create `app/(app)/<name>/page.tsx`.
+2. Add an entry to the `navItems` array in `app/components/TopNav.tsx` (icon, href, label).
+3. The `(app)/layout.tsx` `<main>` wrapper (`max-w-6xl mx-auto px-6 pt-6 pb-12`) applies automatically.
+
+### FloatingBuddy
+
+`app/components/FloatingBuddy.tsx` is a draggable fixed-position widget surfacing the Pomodoro timer. Key details:
+- Collapsed (56 × 56 circle) ↔ expanded (280 px panel) — toggled by click; drag vs. click is distinguished via `hasDraggedRef`.
+- Position persisted to `localStorage` under key `buddy-pos`.
+- Celebrates completed focus phases via a 800 ms bounce when `sessionCount` increments.
 
 ### Client Component Conventions
 
