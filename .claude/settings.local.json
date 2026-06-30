@@ -5,7 +5,8 @@
       "PowerShell(Start-Sleep -Seconds 3; Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 10 | Select-Object StatusCode, @{N='Size';E={$_.Content.Length}})",
       "PowerShell(Get-Job *)",
       "PowerShell(New-Item *)",
-      "PowerShell(Remove-Item *)"
+      "PowerShell(Remove-Item *)",
+      "PowerShell($env:PATH = \"C:\\\\Users\\\\tonys\\\\AppData\\\\Local\\\\Programs\\\\Git\\\\cmd;$env:PATH\"; cd \"C:\\\\Users\\\\tonys\\\\study-os\"; & \"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\" repo create study-os --public --source=. --remote=origin --push 2>&1)"
     ]
   }
 }
