@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  --color-linen: #e8d6c0;
+  --color-ink: #333130;
+  --color-coral: #ff6445;
+  --color-blush: #e2ab9a;
+  --color-bark: #87663e;
+  --color-honey: #e3a164;
+  --color-parchment: #fff8f0;
+}
+
+@theme inline {
+  --font-sans: var(--font-nunito);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 180ms ease-out both;
+}
+
+@keyframes catFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.cat-float-1 { animation: catFloat 3s   ease-in-out infinite; }
+.cat-float-2 { animation: catFloat 3.5s ease-in-out infinite; }
+.cat-float-3 { animation: catFloat 4s   ease-in-out infinite; }
+.cat-float-4 { animation: catFloat 3.2s ease-in-out infinite; }
+.cat-float-5 { animation: catFloat 3.8s ease-in-out infinite; }
+
+@keyframes buddyExpand {
+  from { transform: scale(0.85) translateY(8px); opacity: 0; }
+  to   { transform: scale(1)    translateY(0);   opacity: 1; }
+}
+
+.buddy-expand { animation: buddyExpand 200ms ease-out both; }
+
+@keyframes buddyPulse {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  100% { transform: scale(1.6); opacity: 0;   }
+}
+
+.buddy-pulse { animation: buddyPulse 2s ease-out infinite; }
+
+@keyframes buddyCelebrate {
+  0%, 100% { transform: translateY(0); }
+  20%, 60%  { transform: translateY(-14px); }
+  40%, 80%  { transform: translateY(-7px); }
+}
+
+.buddy-celebrate { animation: buddyCelebrate 650ms ease; }
+
+.font-gaegu {
+  font-family: var(--font-gaegu, cursive);
+}
+
+/* Bento box: hard-offset hand-drawn shadow */
+.bento-box {
+  box-shadow: 3px 3px 0px #333130;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.bento-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 5px 7px 0px #333130;
+}
+
+/* Buttons */
+.btn-primary {
+  transition: transform 100ms ease, box-shadow 100ms ease;
+  box-shadow: 2px 2px 0px #333130;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 3px 4px 0px #333130;
+}
+
+.btn-primary:active {
+  transform: scale(0.96) translateY(1px);
+  box-shadow: 1px 1px 0px rgba(51, 49, 48, 0.5);
+}
+
+.btn-outline {
+  transition: transform 100ms ease, box-shadow 100ms ease;
+  box-shadow: 2px 2px 0px #333130;
+}
+
+.btn-outline:active {
+  transform: scale(0.96);
+  box-shadow: 1px 1px 0px #333130;
+}
+
+body {
+  background-color: #e8d6c0;
+  color: #333130;
+  font-family: var(--font-nunito, "Nunito"), sans-serif;
+  -webkit-font-smoothing: antialiased;
+}

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Receive-Job *)",
+      "PowerShell(Start-Sleep -Seconds 3; Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 10 | Select-Object StatusCode, @{N='Size';E={$_.Content.Length}})",
+      "PowerShell(Get-Job *)",
+      "PowerShell(New-Item *)",
+      "PowerShell(Remove-Item *)"
+    ]
+  }
+}
