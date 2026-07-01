@@ -91,6 +91,20 @@ export function UsersIcon({ size = 24, color = "#333130", strokeWidth = 2 }: Ico
   );
 }
 
+export function TrophyIcon({ size = 24, color = "#333130", strokeWidth = 2 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <path d="M 7 4 L 17 4 L 17 10 C 17 14 14.5 16.5 12 16.5 C 9.5 16.5 7 14 7 10 Z" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M 7 5.5 L 4 5.5 C 4 8.5 5.5 10.5 7.5 11" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M 17 5.5 L 20 5.5 C 20 8.5 18.5 10.5 16.5 11" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M 12 16.5 L 12 19.5" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" />
+      <path d="M 8.5 21 L 15.5 21" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" />
+      <path d="M 9.5 19.5 L 8.5 21" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M 14.5 19.5 L 15.5 21" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 /* ─── Decorative doodles ─── */
 
 export function StarDoodle({ size = 14, color = "#333130", opacity = 0.35 }: { size?: number; color?: string; opacity?: number }) {

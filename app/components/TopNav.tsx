@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HomeIcon, CalendarIcon, TimerIcon, BrainIcon, ShieldIcon, MoonIcon, UsersIcon } from "./icons";
+import { HomeIcon, CalendarIcon, TimerIcon, BrainIcon, ShieldIcon, MoonIcon, UsersIcon, TrophyIcon } from "./icons";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: HomeIcon },
@@ -11,6 +11,7 @@ const navItems = [
   { href: "/knowledge-map", label: "Knowledge", icon: BrainIcon },
   { href: "/focus-shield", label: "Focus", icon: ShieldIcon },
   { href: "/social", label: "Social", icon: UsersIcon },
+  { href: "/leaderboard", label: "Leaderboard", icon: TrophyIcon },
   { href: "/check-in", label: "Check-in", icon: MoonIcon },
 ];
 
