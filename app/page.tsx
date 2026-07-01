@@ -303,7 +303,7 @@ export default function LandingPage() {
             color: "rgba(51,49,48,0.55)", letterSpacing: "0.15em", textTransform: "uppercase",
             marginBottom: "18px",
           }}>
-            ✦ Study OS
+            ✦ Bubble
           </div>
 
           <h1 style={{
@@ -311,7 +311,7 @@ export default function LandingPage() {
             fontWeight: 700, color: "#333130", textAlign: "center", lineHeight: 1.0,
             marginBottom: "20px", letterSpacing: "-0.01em",
           }}>
-            Study smarter,<br />not harder.
+            your focus,<br />your world.
           </h1>
 
           <p style={{
@@ -320,7 +320,7 @@ export default function LandingPage() {
             maxWidth: "520px", lineHeight: 1.55, marginBottom: "36px",
           }}>
             AI-powered planner · Focus Shield · Boss Battles
-            <br />A study OS built for students who want to win.
+            <br />Bubble — built for students who want to win.
           </p>
 
           <div style={{ display: "flex", gap: "14px", alignItems: "center", pointerEvents: "auto" }}>

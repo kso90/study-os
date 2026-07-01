@@ -17,8 +17,8 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Study OS",
-  description: "Your AI-powered study planning companion",
+  title: "Bubble",
+  description: "your focus, your world.",
 };
 
 export default function RootLayout({

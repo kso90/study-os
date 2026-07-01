@@ -56,7 +56,7 @@ export default function FocusShieldPage() {
       <div className="bento-box rounded-[24px] bg-coral p-5 mb-3 flex items-center justify-between gap-4">
         <div>
           <div className="font-gaegu text-xl font-bold text-parchment mb-0.5">
-            📦 Install the Study OS Chrome Extension
+            📦 Install the Bubble Chrome Extension
           </div>
           <p className="text-parchment/70 text-sm font-semibold">
             Enables Smart Filtering on YouTube, Instagram, and more — without blocking the whole site.

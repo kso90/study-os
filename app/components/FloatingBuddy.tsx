@@ -274,7 +274,7 @@ export default function FloatingBuddy() {
           {/* Footer */}
           <div style={{ padding: "6px 16px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: "1px solid rgba(51,49,48,0.08)" }}>
             <span style={{ fontSize: 10, fontFamily: "var(--font-nunito, Nunito)", color: "#333130", opacity: 0.3, fontWeight: 600 }}>
-              Study OS
+              Bubble
             </span>
             <button
               onClick={() => { dispatch({ type: "END" }); setExpanded(false); }}

@@ -24,7 +24,7 @@ export default function TopNav() {
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
         <span className="font-gaegu text-2xl font-bold text-ink tracking-wide flex-shrink-0">
-          Study OS
+          Bubble
         </span>
 
         <nav className="flex items-center gap-1 overflow-x-auto scrollbar-hide">

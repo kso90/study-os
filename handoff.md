@@ -1,4 +1,4 @@
-# Study OS — Handoff Document
+# Bubble — Handoff Document
 
 **Date:** 2026-06-29  
 **Dev server:** `http://localhost:3001` (run `npm run dev` in project root)  
@@ -8,7 +8,7 @@
 
 ## Goal
 
-Build a full-featured AI study OS for students. Designed around a warm, hand-drawn bento aesthetic with ink shadows, Gaegu + Nunito fonts, and a custom warm color palette. The product has seven screens plus a 3D animated landing page.
+Build Bubble, a full-featured AI study companion for students — tagline "your focus, your world." Designed around a warm, hand-drawn bento aesthetic with ink shadows, Gaegu + Nunito fonts, and a custom warm color palette. The product has seven screens plus a 3D animated landing page.
 
 ---
 
@@ -142,7 +142,7 @@ app/
 
 10. **Fonts on landing page** — the 3D landing page uses `var(--font-gaegu)` and `var(--font-nunito)` via inline styles. These are set as CSS variables by Next.js font system in the root `<html>` tag. Should work, but worth verifying in a fresh browser tab (no cached styles).
 
-11. **Add `/` back-link on landing** — no "back to landing" link exists from the app. Could add a small Study OS logo link in TopNav that goes to `/`.
+11. **Add `/` back-link on landing** — no "back to landing" link exists from the app. Could add a small Bubble logo link in TopNav that goes to `/`.
 
 ---
 
