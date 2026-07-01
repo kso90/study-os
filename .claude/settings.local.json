@@ -27,7 +27,12 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/api/rooms)",
       "Bash(curl -s http://localhost:3000/api/rooms)",
       "Bash(curl -s -o /dev/null -w \"leaderboard: %{http_code}\\\\n\" http://localhost:3000/api/leaderboard)",
-      "Bash(curl -s -o /dev/null -w \"rooms page: %{http_code}\\\\n\" http://localhost:3000/rooms)"
+      "Bash(curl -s -o /dev/null -w \"rooms page: %{http_code}\\\\n\" http://localhost:3000/rooms)",
+      "Bash(curl -s -o /dev/null -w \"status: %{http_code}\\\\n\" http://localhost:3000/api/rooms)",
+      "Bash(curl -s -o /dev/null -w \"status: %{http_code}\\\\n\" http://localhost:3000/rooms)",
+      "Bash(curl -s -o /dev/null -w \"status: %{http_code}\\\\n\" http://localhost:3000/room/42)",
+      "Bash(curl -s http://localhost:3000/room/42)",
+      "Bash(npx eslint *)"
     ]
   }
 }
