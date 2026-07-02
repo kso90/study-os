@@ -3,42 +3,53 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
+
+interface FieldErrors {
+  name?: string;
+  subject?: string;
+}
 
 export default function CreateRoomPage() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    if (!supabase) {
-      setErrorMessage(
-        "Supabase isn't configured — add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to .env.local."
-      );
-      return;
-    }
+    const errors: FieldErrors = {};
+    if (name.trim().length === 0) errors.name = "Room name is required.";
+    if (subject.trim().length === 0) errors.subject = "Subject is required.";
+    setFieldErrors(errors);
+    if (Object.keys(errors).length > 0) return;
 
     setIsSubmitting(true);
     setErrorMessage(null);
 
-    const { data, error } = await supabase
-      .from("rooms")
-      .insert({ name: name.trim(), subject: subject.trim() || null })
-      .select()
-      .single();
+    try {
+      const response = await fetch("/api/create-room", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name.trim(), subject: subject.trim() }),
+      });
 
-    if (error) {
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrorMessage(data.error ?? "Failed to create room.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      router.push(`/room/${data.id}`);
+    } catch (error) {
       console.error(error);
-      setErrorMessage("Failed to create room");
+      setErrorMessage("Failed to create room.");
       setIsSubmitting(false);
-      return;
     }
-
-    router.push(`/room/${data.id}`);
   }
 
   return (
@@ -56,17 +67,19 @@ export default function CreateRoomPage() {
           <input
             id="room-name"
             type="text"
-            required
             value={name}
             onChange={(event) => setName(event.target.value)}
             placeholder="e.g. Late-night calc study"
             className="font-nunito text-sm rounded-xl px-3 py-2 bg-linen/60 border border-ink/15 text-ink placeholder:text-ink/40 focus:outline-none focus:border-ink/40"
           />
+          {fieldErrors.name && (
+            <p className="font-nunito text-xs font-bold text-coral">{fieldErrors.name}</p>
+          )}
         </div>
 
         <div className="flex flex-col gap-1.5">
           <label htmlFor="room-subject" className="font-nunito text-xs font-bold text-ink/70">
-            Subject <span className="text-ink/40 font-semibold">(optional)</span>
+            Subject
           </label>
           <input
             id="room-subject"
@@ -76,6 +89,9 @@ export default function CreateRoomPage() {
             placeholder="e.g. Calculus II"
             className="font-nunito text-sm rounded-xl px-3 py-2 bg-linen/60 border border-ink/15 text-ink placeholder:text-ink/40 focus:outline-none focus:border-ink/40"
           />
+          {fieldErrors.subject && (
+            <p className="font-nunito text-xs font-bold text-coral">{fieldErrors.subject}</p>
+          )}
         </div>
 
         {errorMessage && (
@@ -87,7 +103,7 @@ export default function CreateRoomPage() {
         <div className="flex items-center gap-3 mt-2">
           <button
             type="submit"
-            disabled={isSubmitting || name.trim().length === 0}
+            disabled={isSubmitting}
             className="btn-primary font-gaegu font-bold text-sm px-5 py-2.5 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ border: "2px solid #333130", background: "#ff6445", color: "#fff8f0" }}
           >
