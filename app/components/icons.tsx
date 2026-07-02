@@ -91,6 +91,16 @@ export function UsersIcon({ size = 24, color = "#333130", strokeWidth = 2 }: Ico
   );
 }
 
+export function RoomIcon({ size = 24, color = "#333130", strokeWidth = 2 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <path d="M 6 3 L 15 3 L 15 21 L 6 21" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M 15 3 L 20 4 L 20 20 L 15 21" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="12.5" cy="12" r="1" fill={color} />
+    </svg>
+  );
+}
+
 export function TrophyIcon({ size = 24, color = "#333130", strokeWidth = 2 }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">

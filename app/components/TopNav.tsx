@@ -11,6 +11,7 @@ const navItems = [
   { href: "/knowledge-map", label: "Knowledge", icon: BrainIcon },
   { href: "/focus-shield", label: "Focus", icon: ShieldIcon },
   { href: "/social", label: "Social", icon: UsersIcon },
+  { href: "/rooms", label: "Rooms", icon: UsersIcon },
   { href: "/leaderboard", label: "Leaderboard", icon: TrophyIcon },
   { href: "/check-in", label: "Check-in", icon: MoonIcon },
 ];

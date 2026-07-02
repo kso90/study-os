@@ -32,7 +32,9 @@
       "Bash(curl -s -o /dev/null -w \"status: %{http_code}\\\\n\" http://localhost:3000/rooms)",
       "Bash(curl -s -o /dev/null -w \"status: %{http_code}\\\\n\" http://localhost:3000/room/42)",
       "Bash(curl -s http://localhost:3000/room/42)",
-      "Bash(npx eslint *)"
+      "Bash(npx eslint *)",
+      "Read(//c/Users/tonys/OneDrive/Desktop/Code Memory/**)",
+      "Read(//c/Users/tonys/OneDrive/Desktop/Code Memory/study-os/**)"
     ]
   }
 }
