@@ -2,6 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
+import {
+  computeRemainingSeconds,
+  defaultTimerState,
+  formatSeconds,
+  type TimerState,
+} from "@/lib/timerState";
 
 interface RoomParticipant {
   id: number;
@@ -16,17 +23,24 @@ interface Room {
   subject: string | null;
   created_at: string;
   created_by: string | null;
+  timer_state: TimerState | null;
   room_participants: RoomParticipant[];
 }
 
 export default function RoomPage() {
   const params = useParams<{ id: string }>();
   const id = params?.id;
+
   const [room, setRoom] = useState<Room | null>(null);
+  const [timerState, setTimerState] = useState<TimerState>(defaultTimerState());
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [actionPending, setActionPending] = useState(false);
+  const [, forceTick] = useState(0);
 
   useEffect(() => {
+    if (!id) return;
+
     async function fetchRoom() {
       try {
         const response = await fetch(`/api/room/${id}`);
@@ -34,7 +48,9 @@ export default function RoomPage() {
           setErrorMessage("Room not found.");
           return;
         }
-        setRoom(await response.json());
+        const data: Room = await response.json();
+        setRoom(data);
+        setTimerState(data.timer_state ?? defaultTimerState());
       } catch (error) {
         console.error(error);
         setErrorMessage("Failed to load room.");
@@ -44,6 +60,48 @@ export default function RoomPage() {
     }
     fetchRoom();
   }, [id]);
+
+  // Subscribe to live timer updates broadcast by the /timer endpoint.
+  useEffect(() => {
+    if (!id || !supabase) return;
+
+    const channel = supabase.channel(`room:${id}`);
+    channel
+      .on("broadcast", { event: "timer_update" }, ({ payload }) => {
+        setTimerState(payload as TimerState);
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [id]);
+
+  // Re-render every second so the countdown ticks; started_at/remaining_seconds
+  // from the server remain the actual source of truth.
+  useEffect(() => {
+    const interval = setInterval(() => forceTick((tick) => tick + 1), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  async function sendTimerAction(action: "start" | "pause" | "reset") {
+    if (!id || actionPending) return;
+    setActionPending(true);
+    try {
+      const response = await fetch(`/api/room/${id}/timer`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action }),
+      });
+      if (response.ok) {
+        setTimerState(await response.json());
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setActionPending(false);
+    }
+  }
 
   if (loading) {
     return (
@@ -64,6 +122,8 @@ export default function RoomPage() {
       </div>
     );
   }
+
+  const remainingSeconds = computeRemainingSeconds(timerState);
 
   return (
     <div className="animate-fade-up max-w-2xl mx-auto flex flex-col gap-6">
@@ -98,9 +158,36 @@ export default function RoomPage() {
 
       <div className="bento-box rounded-[20px] bg-parchment p-6 text-center">
         <h2 className="font-gaegu text-xl font-bold text-ink mb-2">Pomodoro Timer</h2>
-        <p className="font-nunito text-sm font-semibold text-ink/50">
-          Synced timer coming soon — this is a placeholder.
+        <p className="font-gaegu text-5xl font-bold text-ink mb-5">
+          {formatSeconds(remainingSeconds)}
         </p>
+        <div className="flex items-center justify-center gap-3">
+          <button
+            type="button"
+            onClick={() => sendTimerAction("start")}
+            disabled={actionPending || timerState.status === "running"}
+            className="btn-primary font-gaegu font-bold text-sm px-5 py-2.5 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ border: "2px solid #333130", background: "#ff6445", color: "#fff8f0" }}
+          >
+            Start
+          </button>
+          <button
+            type="button"
+            onClick={() => sendTimerAction("pause")}
+            disabled={actionPending || timerState.status !== "running"}
+            className="btn-outline font-gaegu font-bold text-sm px-5 py-2.5 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Pause
+          </button>
+          <button
+            type="button"
+            onClick={() => sendTimerAction("reset")}
+            disabled={actionPending}
+            className="btn-outline font-gaegu font-bold text-sm px-5 py-2.5 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Reset
+          </button>
+        </div>
       </div>
     </div>
   );
