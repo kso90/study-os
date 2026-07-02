@@ -64,8 +64,9 @@ export default function RoomPage() {
   // Subscribe to live timer updates broadcast by the /timer endpoint.
   useEffect(() => {
     if (!id || !supabase) return;
+    const client = supabase;
 
-    const channel = supabase.channel(`room:${id}`);
+    const channel = client.channel(`room:${id}`);
     channel
       .on("broadcast", { event: "timer_update" }, ({ payload }) => {
         setTimerState(payload as TimerState);
@@ -73,7 +74,7 @@ export default function RoomPage() {
       .subscribe();
 
     return () => {
-      supabase.removeChannel(channel);
+      client.removeChannel(channel);
     };
   }, [id]);
 
