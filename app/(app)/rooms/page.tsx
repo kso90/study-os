@@ -63,6 +63,7 @@ export default function RoomsPage() {
         </div>
         <button
           type="button"
+          onClick={() => router.push("/create-room")}
           className="btn-primary font-gaegu font-bold text-sm px-5 py-2.5 rounded-full flex-shrink-0"
           style={{ border: "2px solid #333130", background: "#ff6445", color: "#fff8f0" }}
         >
